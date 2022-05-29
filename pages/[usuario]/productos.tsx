@@ -37,10 +37,7 @@ const MyProdcuts: NextPage = () => {
     const unsuscribe = onSnapshot(productsQuery, (snapshot) => {
       setProducts(snapshot.docs.map((product) => product.data()));
     });
-    return () => {
-      unsuscribe();
-      console.log('cancel listen');
-    };
+    return unsuscribe;
   }, [user]);
 
   return (

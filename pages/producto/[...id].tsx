@@ -30,7 +30,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const reviewsRef = collectionRef<Review>(`products/${id[0]}/reviews`);
 
     reviews = (await getDocs(reviewsRef)).docs.map((opinion) => opinion.data());
-    console.log(reviews);
     product = (await getDoc(productRef)).data();
   }
   return {

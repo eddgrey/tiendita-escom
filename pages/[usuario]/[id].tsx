@@ -86,7 +86,7 @@ const ProductForm: NextPage<Props> = ({ product }) => {
         seller: uid,
       });
       await updateDoc(newProduct, { id: newProduct.id });
-      console.log('Agregando producto...', images);
+
       router.push('/usuario/productos');
       toast.success('Producto agregado!');
     }

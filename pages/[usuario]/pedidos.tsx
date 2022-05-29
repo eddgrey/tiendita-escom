@@ -1,4 +1,4 @@
-import { getDocs, onSnapshot } from 'firebase/firestore';
+import { onSnapshot } from 'firebase/firestore';
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Buyout from '../../components/Buyout';
@@ -16,7 +16,7 @@ const Pedidos: NextPage = () => {
     const unsuscribe = onSnapshot(ordersRef, (orders) => {
       setOrders(orders.docs.map((order) => order.data()));
     });
-    console.log(orders);
+
     return unsuscribe;
   }, []);
 

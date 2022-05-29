@@ -25,7 +25,6 @@ const Login: NextPage = () => {
 
   const onSubmit = async (e: FormEvent<HTMLElement>) => {
     e.preventDefault();
-    console.log('submit');
 
     try {
       const { user } = await createUserWithEmailAndPassword(

@@ -19,12 +19,12 @@ import {
 import { Product, User } from './types';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBKoNj4yRm0m3YDUHJS4W4nc5Xy5Yr5x5g',
-  authDomain: 'tienda-escom.firebaseapp.com',
-  projectId: 'tienda-escom',
-  storageBucket: 'tienda-escom.appspot.com',
-  messagingSenderId: '813924978995',
-  appId: '1:813924978995:web:9a2d3907dddcb9d655ee46',
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
@@ -39,7 +39,6 @@ export const storage = getStorage(app);
 export const getProductsUser = async (uid: string | undefined) => {
   const productsRef = collectionRef<Product>(`users/${uid}/products`);
   const products = (await getDocs(productsRef)).docs;
-  // console.log('docs', products);
   return products.map((product) => product.data());
 };
 

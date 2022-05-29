@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import toast from 'react-hot-toast';
-import { auth, collectionRef, documentRef } from '../lib/firebase';
+import { auth, documentRef } from '../lib/firebase';
 import { Order, Product } from '../lib/types';
 
 type BuyoutProps = {

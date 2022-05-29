@@ -14,13 +14,10 @@ export const fetchProducts = async (
   const products = (await getDocs(productsQuery)).docs.map((product) =>
     product.data()
   );
-  console.log(products);
 
   if (category !== 'todas') {
     return products.filter((product) => product.category === category);
   }
 
-  console.log({ category, order });
-  console.log(products);
   return products.filter((product) => product.published === true);
 };

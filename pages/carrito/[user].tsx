@@ -15,7 +15,7 @@ import toast from 'react-hot-toast';
 import NumberFormat from 'react-number-format';
 import { useUserContext } from '../../context/userContext';
 import { auth, collectionRef, documentRef } from '../../lib/firebase';
-import { Order, Product, ProductCart, User } from '../../lib/types';
+import { Order, ProductCart, User } from '../../lib/types';
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const user = context.params?.user;
@@ -142,7 +142,7 @@ const ShoppingCartRef: NextPage<ShoppingCartRefProps> = ({ products }) => {
     sellers.forEach((seller) => createOrder(seller));
 
     // Vaciar el carrito
-    // productsCart.map((product) => deleteProductCart(product.id));
+    productsCart.map((product) => deleteProductCart(product.id));
 
     router.push(`/usuario/compras`);
     toast.success('Pedido creado');
