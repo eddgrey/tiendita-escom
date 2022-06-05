@@ -91,7 +91,7 @@ const ShoppingCartRef: NextPage<ShoppingCartRefProps> = ({ products }) => {
     await deleteDoc(productRef);
   };
 
-  const createOrder = async (seller: string) => {
+  const createOrder = async (seller: string, userOrderId: string) => {
     const sellerRef = collectionRef<Order>(`users/${seller}/orders`);
 
     const p = productsCart.filter((product) => product.seller === seller);
@@ -99,6 +99,7 @@ const ShoppingCartRef: NextPage<ShoppingCartRefProps> = ({ products }) => {
       const d = await addDoc(sellerRef, {
         id: '',
         user: user.uid,
+        userOrderId,
         state: 'Pendiente',
         products: p.map((product) => {
           return {
@@ -139,7 +140,7 @@ const ShoppingCartRef: NextPage<ShoppingCartRefProps> = ({ products }) => {
 
     const sellers = new Set(productsCart.map((product) => product.seller));
 
-    sellers.forEach((seller) => createOrder(seller));
+    sellers.forEach((seller) => createOrder(seller, d.id));
 
     // Vaciar el carrito
     productsCart.map((product) => deleteProductCart(product.id));
@@ -154,7 +155,7 @@ const ShoppingCartRef: NextPage<ShoppingCartRefProps> = ({ products }) => {
       {productsCart.length > 0 ? (
         <>
           <table className="w-full mt-6">
-            <tr className="grid grid-cols-4 text-lg text-gray-700">
+            <tr className="grid grid-cols-4 lg:text-lg text-gray-700">
               <th>Producto</th>
               <th>Cantidad</th>
               <th>Precio</th>
@@ -168,7 +169,7 @@ const ShoppingCartRef: NextPage<ShoppingCartRefProps> = ({ products }) => {
               />
             ))}
           </table>
-          <strong className=" self-end">
+          <strong className="self-end text-xl font-medium">
             Total
             <NumberFormat
               value={updateTotalCart()}
@@ -176,7 +177,10 @@ const ShoppingCartRef: NextPage<ShoppingCartRefProps> = ({ products }) => {
               prefix="$"
             />
           </strong>
-          <button className="primary-btn self-center w-1/4" onClick={checkOut}>
+          <button
+            className="primary-btn self-center w-1/2 lg:w-1/4"
+            onClick={checkOut}
+          >
             Comprar
           </button>
         </>
@@ -227,13 +231,13 @@ const ProductCart = ({ product, setTotalCart }: Props) => {
         />
         <div className="flex flex-col items-start text-sm font-medium ml-6">
           <Link href={`/producto/${product.id}`}>
-            <a className="text-indigo-600">Ver producto</a>
+            <a className="text-indigo-600">Ver</a>
           </Link>
           <button
             onClick={() => deleteProductCart(product.id)}
             className="text-red-600"
           >
-            Eliminar producto
+            Eliminar
           </button>
         </div>
       </td>
@@ -242,6 +246,7 @@ const ProductCart = ({ product, setTotalCart }: Props) => {
           type="number"
           min={1}
           max={product.stock}
+          className="input text-center w-1/2 lg:w-full"
           value={product.amount}
           onChange={updateAmount}
         />

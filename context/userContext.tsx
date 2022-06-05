@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 import { auth } from '../lib/firebase';
-import { Filter, Product, User } from '../lib/types';
+import { Filter, User } from '../lib/types';
 
 interface IUserContext {
   user: User | null;
@@ -47,7 +47,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       },
       (error) => console.log(error)
     );
-    console.log('user change');
     return unsuscribe;
   }, []);
 

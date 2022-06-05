@@ -79,11 +79,11 @@ const FormReview = ({ product }: FormReviewProps) => {
   return (
     <form
       onSubmit={onSubmit}
-      className="bg-white rounded-lg w-1/2 py-6 px-14 space-y-4 flex flex-col"
+      className="bg-white rounded-lg w-full lg:w-1/2 py-6 px-14 space-y-4 flex flex-col"
     >
       <h1 className="page-title">Reseña a {product.name}</h1>
       <div>
-        <label htmlFor="title" className="input">
+        <label htmlFor="title" className="font-medium">
           Titulo
         </label>
         <input
@@ -97,7 +97,9 @@ const FormReview = ({ product }: FormReviewProps) => {
         />
       </div>
       <div>
-        <label htmlFor="comment">Comentario</label>
+        <label htmlFor="comment" className="font-medium">
+          Comentario
+        </label>
         <textarea
           name="comment"
           id="comment"
@@ -109,7 +111,9 @@ const FormReview = ({ product }: FormReviewProps) => {
         />
       </div>
       <div>
-        <label htmlFor="score">Estrellas</label>
+        <label htmlFor="score" className="font-medium">
+          Estrellas
+        </label>
         <select
           name="score"
           className="input"

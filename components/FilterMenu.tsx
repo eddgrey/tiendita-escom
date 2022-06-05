@@ -13,7 +13,6 @@ const FilterMenu = ({ show }: FilterMenuProps) => {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFilters(formValues);
-    console.log(formValues);
   };
 
   const onChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -26,7 +25,7 @@ const FilterMenu = ({ show }: FilterMenuProps) => {
     <>
       {show && (
         <form
-          className=" fixed left-0 top-[12vh] bg-gray-900 text-gray-200 h-full w-1/4 z-10 flex flex-col px-6"
+          className="fixed left-0 top-[12vh] bg-gray-900 text-gray-200 h-full w-1/2 sm:w-1/3 lg:w-1/4 z-10 flex flex-col px-6"
           onSubmit={onSubmit}
         >
           <h2 className="text-center text-xl font-medium my-6">Filtros</h2>
@@ -51,7 +50,7 @@ const FilterMenu = ({ show }: FilterMenuProps) => {
               onChange={onChange}
             >
               <option value="totalScore">Por defecto</option>
-              <option value="sold">Mas vendido</option>
+              <option value="soldUnits">Mas vendido</option>
               <option value="price">Precio</option>
               <option value="totalScore">Mejor calificado</option>
             </select>

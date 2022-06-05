@@ -56,13 +56,6 @@ export type Review = {
   comment: string;
 };
 
-// export type Shopping = {
-//   total: number;
-//   state: string;
-//   date: Timestamp;
-//   products: OrderedProduct[];
-// };
-
 export type OrderedProduct = {
   id: string;
   image: ImageProduct;
@@ -72,6 +65,7 @@ export type OrderedProduct = {
 export type Order = {
   id: string;
   user?: string;
+  userOrderId?: string;
   state: string;
   products: OrderedProduct[];
   total: number;

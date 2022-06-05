@@ -105,7 +105,7 @@ const ProductForm: NextPage<Props> = ({ product }) => {
     <main className="flex justify-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col w-1/2 bg-white rounded-lg py-4 px-10 space-y-4"
+        className="flex flex-col w-full lg:w-1/2 bg-white rounded-lg py-4 px-10 space-y-4"
       >
         <h1 className="self-center text-2xl font-semibold">
           {isNewProduct ? 'Nuevo Producto' : 'Editar Producto'}
@@ -156,7 +156,7 @@ const ProductForm: NextPage<Props> = ({ product }) => {
         <ImageUploader images={images} setImages={setImages} />
 
         <button type="submit" className="primary-btn w-1/2 self-center">
-          {isNewProduct ? 'Agregar Producto' : 'Guardar Cambios'}
+          {isNewProduct ? 'Agregar' : 'Guardar'}
         </button>
       </form>
     </main>

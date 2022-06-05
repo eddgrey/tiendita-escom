@@ -90,7 +90,7 @@ const Login: NextPage = () => {
 
   return (
     <main className="flex flex-col items-center">
-      <form className="bg-white w-1/2 h-full px-6 py-10 rounded-lg flex flex-col items-center">
+      <form className="bg-white w-full md:w-1/2 h-full px-1 py-4 lg:px-6 lg:py-10 rounded-lg flex flex-col items-center">
         <h1 className="page-title">Crear Cuenta</h1>
         <div className="flex flex-col space-y-4 w-1/2">
           <input

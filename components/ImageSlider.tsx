@@ -25,8 +25,8 @@ const ImageSlider = ({ images }: Props) => {
       <Image
         src={images[currentImage].imgUrl}
         alt=""
-        width={250}
-        height={250}
+        width={270}
+        height={270}
       />
     </section>
   );
@@ -46,14 +46,13 @@ const ImagePreview = ({
   setCurrentImage,
 }: ImagePreviewProps) => {
   const color = currentImage === idx ? 'blue' : 'gray';
-  console.log(color);
 
   return (
     <div
       className={`border-2 border-${color}-200 p-1 flex justify-center items-center hover:cursor-pointer`}
       onClick={() => setCurrentImage(idx)}
     >
-      <Image src={image.imgUrl} alt={image.imgName} width={40} height={40} />
+      <Image src={image.imgUrl} alt={image.imgName} width={80} height={80} />
     </div>
   );
 };

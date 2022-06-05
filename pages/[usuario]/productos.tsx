@@ -45,7 +45,7 @@ const MyProdcuts: NextPage = () => {
       <main>
         <h1 className="page-title">Mis productos</h1>
         <Link href="/usuario/nuevo-producto">
-          <a className="flex items-center justify-center space-x-2 primary-btn w-1/5">
+          <a className="flex items-center justify-center space-x-2 primary-btn w-1/2 lg:w-1/5">
             <RiAddCircleLine className="icon" />
             <p>Agregar Producto</p>
           </a>

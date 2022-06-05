@@ -21,6 +21,21 @@ const Buyout = ({ buyout, userType = '' }: BuyoutProps) => {
     await updateDoc(orderRef, {
       state: 'Cancelado',
     });
+
+    const order = (await getDoc(orderRef)).data();
+    order?.products.map((product) => {
+      updateStock(product.id, product.amount);
+    });
+
+    const orderUser = documentRef<Order>(
+      `/users/${order?.user}/shopping/${order?.userOrderId}`
+    );
+
+    console.log(`/users/${order?.user}/shopping/${order?.userOrderId}`);
+    await updateDoc(orderUser, {
+      state: 'Cancelado',
+    });
+
     toast.error('Pedido Cancelado');
   };
 
@@ -36,6 +51,7 @@ const Buyout = ({ buyout, userType = '' }: BuyoutProps) => {
     const orderRef = documentRef<Order>(
       `/users/${auth.currentUser?.uid}/orders/${id}`
     );
+
     await updateDoc(orderRef, {
       state: 'Completado',
     });
@@ -43,6 +59,15 @@ const Buyout = ({ buyout, userType = '' }: BuyoutProps) => {
     const order = (await getDoc(orderRef)).data();
     order?.products.map((product) => {
       updateStock(product.id, product.amount);
+    });
+
+    const orderUser = documentRef<Order>(
+      `/users/${order?.user}/shopping/${order?.userOrderId}`
+    );
+
+    console.log(`/users/${order?.user}/shopping/${order?.userOrderId}`);
+    await updateDoc(orderUser, {
+      state: 'Completado',
     });
 
     toast.success('Pedido completado!');

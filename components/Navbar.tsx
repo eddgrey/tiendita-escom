@@ -7,6 +7,7 @@ import SearchBar from './SearchBar';
 import FilterMenu from './FilterMenu';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 const NavBar = () => {
   const router = useRouter();
@@ -15,8 +16,8 @@ const NavBar = () => {
 
   return (
     <nav className="h-[12vh] bg-gray-900 text-gray-200 text-lg">
-      <ul className="h-full flex items-center px-10">
-        <div className="flex space-x-6 items-center w-1/5">
+      <ul className="h-full flex items-center px-6 lg:px-10">
+        <div className="flex space-x-6 items-center w-1/2 sm:w-1/5">
           <li>
             <RiMenuFill
               className="icon hover:cursor-pointer"
@@ -34,10 +35,10 @@ const NavBar = () => {
             </Link>
           </li>
         </div>
-        <li className="w-3/5 px-10">
+        <li className="w-3/5 px-4 lg:px-10 hidden sm:block">
           <SearchBar />
         </li>
-        <div className="flex w-1/5 items-center justify-end space-x-4">
+        <div className="flex w-1/2 sm:w-1/5 items-center justify-end space-x-2 sm:space-x-4">
           {user && (
             <>
               <li>
@@ -51,7 +52,15 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
-                <button onClick={() => signOut(auth)}>Cerrar Sesión</button>
+                <button
+                  onClick={async () => {
+                    await signOut(auth);
+                    router.push('/');
+                    toast.success('Se cerró sesión');
+                  }}
+                >
+                  Cerrar Sesión
+                </button>
               </li>
             </>
           )}
@@ -62,11 +71,11 @@ const NavBar = () => {
                   <a>Login</a>
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/crear-cuenta">
                   <a>Crear cuenta</a>
                 </Link>
-              </li>
+              </li> */}
             </>
           )}
         </div>

@@ -116,16 +116,16 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
 
   return (
     <section className="h-1/2 bg-white/90 grid grid-cols-1 md:grid-cols-3 w-full rounded-lg">
-      <div className="h-full px-4 flex justify-between items-center col-span-2">
-        <ImageSlider images={product.images} />
-        <div className="w-1/2 self-start py-4 ml-4">
+      <div className="h-full px-4 flex flex-col md:flex-row justify-between items-center col-span-2">
+        <div className="w-1/2 self-start py-4 ml-4 md:order-2">
           <h2 className="text-2xl font-semibold tracking-wide text-center mb-4">
             {product.name}
           </h2>
           <p>{product.description}</p>
         </div>
+        <ImageSlider images={product.images} />
       </div>
-      <div className="h-full flex flex-col py-4 px-10 space-y-3">
+      <div className="h-full flex flex-col py-4 px-4 lg:px-10 space-y-3">
         <Stars numStars={product.totalScore / product.numReviews} showNum />
         <strong className="text-xl">$ {product.price}</strong>
         <p>{product.stock > 0 ? 'Stock disponible' : 'Producto agotado'}</p>
