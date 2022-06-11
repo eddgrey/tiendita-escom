@@ -39,7 +39,7 @@ const FilterMenu = ({ show }: FilterMenuProps) => {
               <option value="todas">Todas</option>
               <option value="papeleria">Papeleria</option>
               <option value="comida">Comida</option>
-              <option value="material">Material</option>
+              <option value="electronica">Electronica</option>
             </select>
           </div>
           <div className="mb-6">

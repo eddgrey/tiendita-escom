@@ -1,4 +1,4 @@
-import { onSnapshot } from 'firebase/firestore';
+import { onSnapshot, orderBy, query } from 'firebase/firestore';
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import AuthCheck from '../../components/AuthCheck';
@@ -14,8 +14,10 @@ const Compras: NextPage = () => {
       `users/${auth.currentUser?.uid}/shopping`
     );
 
-    const unsuscribe = onSnapshot(ordersRef, (orders) => {
-      setShopping(orders.docs.map((order) => order.data()));
+    const ordersQuery = query(ordersRef, orderBy('date', 'desc'));
+
+    const unsuscribe = onSnapshot(ordersQuery, (querySnapshot) => {
+      setShopping(querySnapshot.docs.map((order) => order.data()));
     });
 
     return unsuscribe;

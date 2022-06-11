@@ -4,7 +4,7 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from 'firebase/auth';
-import { FirestoreError, setDoc } from 'firebase/firestore';
+import { setDoc } from 'firebase/firestore';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -15,7 +15,6 @@ import {
   documentRef,
   facebookProvaider,
   googleProvider,
-  usersCollection,
 } from '../lib/firebase';
 import { User } from '../lib/types';
 

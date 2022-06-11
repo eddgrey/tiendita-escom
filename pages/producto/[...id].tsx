@@ -6,6 +6,7 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import FormReview from '../../components/FormReview';
@@ -26,8 +27,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   let reviews = null;
 
   if (id) {
-    const productRef = documentRef<Product>(`products/${id[0]}`);
-    const reviewsRef = collectionRef<Review>(`products/${id[0]}/reviews`);
+    const productRef = documentRef<Product>(`/products/${id[0]}`);
+    const reviewsRef = collectionRef<Review>(`/products/${id[0]}/reviews`);
 
     reviews = (await getDocs(reviewsRef)).docs.map((opinion) => opinion.data());
     product = (await getDoc(productRef)).data();
@@ -37,6 +38,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       product,
       reviews,
     },
+    revalidate: 10,
   };
 };
 
@@ -86,6 +88,14 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
   const { user } = useUserContext();
 
   const addToCart = async () => {
+    if (!user) {
+      toast.error('Debe iniciar sesión!');
+      return;
+    }
+    if (product.stock <= 0) {
+      toast.error('Producto Agotado!');
+      return;
+    }
     if (user) {
       const carritoRef = documentRef<ProductCart>(
         `users/${user.uid}/shopping-cart/${product.id}`
@@ -109,8 +119,6 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
         });
       }
       toast.success('Se agrego el producto');
-    } else {
-      toast.error('Debe iniciar sesión!');
     }
   };
 
@@ -128,8 +136,18 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
       <div className="h-full flex flex-col py-4 px-4 lg:px-10 space-y-3">
         <Stars numStars={product.totalScore / product.numReviews} showNum />
         <strong className="text-xl">$ {product.price}</strong>
-        <p>{product.stock > 0 ? 'Stock disponible' : 'Producto agotado'}</p>
+        {product.stock > 0 ? (
+          <p className="text-green-700 font-medium text-lg">
+            Producto disponible
+          </p>
+        ) : (
+          <p className="text-red-700 font-medium text-lg">Producto Agotado</p>
+        )}
         <p>{product.soldUnits} unidades vendidas</p>
+        <Link href={`/${product.seller}`}>
+          <a className="font-medium text-lg hover:text-blue-700">Vendedor</a>
+        </Link>
+
         <label className="flex items-center">
           <p>Cantidad: </p>
           <select className="border-none focus:ring-0">
@@ -137,7 +155,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
           </select>
           <span className="text-gray-300">{`(${product.stock} disponibles)`}</span>
         </label>
-        <a className="primary-btn w-full">Comprar</a>
+        {/* <a className="primary-btn w-full">Comprar</a> */}
 
         <button className="primary-btn w-full" onClick={addToCart}>
           Agregar al carrito

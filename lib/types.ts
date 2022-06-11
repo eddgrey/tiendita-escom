@@ -28,6 +28,7 @@ export type ProductCart = {
 
 export type User = {
   uid: string;
+  whatsapp?: string;
   displayName: string | null;
   email: string | null;
   photoURL: string | null;

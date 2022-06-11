@@ -1,4 +1,4 @@
-import { onSnapshot } from 'firebase/firestore';
+import { onSnapshot, orderBy, query } from 'firebase/firestore';
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Buyout from '../../components/Buyout';
@@ -13,8 +13,10 @@ const Pedidos: NextPage = () => {
       `users/${auth.currentUser?.uid}/orders`
     );
 
-    const unsuscribe = onSnapshot(ordersRef, (orders) => {
-      setOrders(orders.docs.map((order) => order.data()));
+    const ordersQuery = query(ordersRef, orderBy('date', 'desc'));
+
+    const unsuscribe = onSnapshot(ordersQuery, (querySnapshot) => {
+      setOrders(querySnapshot.docs.map((order) => order.data()));
     });
 
     return unsuscribe;
